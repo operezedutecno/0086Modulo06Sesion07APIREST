@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "7647521c-75b4-4552-818d-8be3f8347197",
+		"name": "Modulo06S07",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5058327"
+	},
+	"item": [
+		{
+			"name": "ListarAnimales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/animales?habitat=terrestre&especie=perro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"animales"
+					],
+					"query": [
+						{
+							"key": "habitat",
+							"value": "terrestre"
+						},
+						{
+							"key": "especie",
+							"value": "perro"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RegistrarAnimales",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"especie\": \"Perro\",\r\n    \"habitat\": \"Terrestre\",\r\n    \"edad\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/animales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"animales"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "RegistrarAnimales1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"especie\": \"Perro\",\r\n    \"habitat\": \"Terrestre\",\r\n    \"edad\": 5,\r\n    \"nombre\": \"Hachiko\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/animales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"animales"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "RegistrarAnimales2",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"especie\": \"León\",\r\n    \"habitat\": \"Terrestre\",\r\n    \"edad\": 8,\r\n    \"nombre\": \"Simba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/animales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"animales"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "RegistrarAnimales3",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"especie\": \"Pez\",\r\n    \"habitat\": \"Acuático\",\r\n    \"edad\": 2,\r\n    \"nombre\": \"Nemo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/animales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"animales"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "EditarAnimales",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/animales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"animales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EliminarAnimales",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/animales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"animales"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
