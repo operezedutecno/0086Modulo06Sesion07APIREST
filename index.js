@@ -1,7 +1,8 @@
 const http = require("http");
 const url = require("url");
 const { v4: uuidv4 } = require('uuid');
-const { readFileSync, writeFileSync } = require("fs")
+const { readFileSync, writeFileSync } = require("fs");
+const { sourceMapsEnabled } = require("process");
 const port = 3000;
 
 // Ubicación del archivo de persistencia.
@@ -44,9 +45,20 @@ http.createServer((req, res) => {
             })
 
             req.on("end", () => {
+                res.setHeader("Content-Type","application/json");
                 body = JSON.parse(body);
                 const contentString = readFileSync(dataAnimales, "utf-8");
                 const contentJS = JSON.parse(contentString);
+
+                const encontrado = contentJS.some(animal => {
+                    return String(animal.especie).toLowerCase() == String(body.especie).toLowerCase() &&
+                        String(animal.nombre).toLowerCase() == String(body.nombre).toLowerCase()
+                })
+
+                if(encontrado) {
+                    res.writeHead(409)
+                    return res.end(JSON.stringify({ message: "No es posible registrar, el animal ya existe en nuestros registros"}))
+                }
 
                 const animal = {
                     id: uuidv4(),
@@ -59,7 +71,6 @@ http.createServer((req, res) => {
                 contentJS.push(animal);
                 writeFileSync(dataAnimales, JSON.stringify(contentJS),"utf-8");
 
-                res.setHeader("Content-Type","application/json");
                 res.writeHead(201);
                 res.end(JSON.stringify({message: "Registro exitoso", data: animal}));
             })
@@ -79,10 +90,25 @@ http.createServer((req, res) => {
 
                 let busqueda = contentJS.findIndex(animal => animal.id == body.id)
                 if(busqueda != -1) {
+
+                    const encontrado = contentJS.some(animal => {
+                        return String(animal.especie).toLowerCase() == String(body.especie).toLowerCase() &&
+                        String(animal.nombre).toLowerCase() == String(body.nombre).toLowerCase() &&
+                        animal.id != body.id
+                    })
+
+                    if(encontrado) {
+                        res.writeHead(409);
+                        return res.end(JSON.stringify({ message: "Ya existe otro animal con el mismo nombre y especie"}))
+                    }
+
                     contentJS[busqueda] = { ...contentJS[busqueda], ...body }
                     writeFileSync(dataAnimales, JSON.stringify(contentJS), "utf-8")
-                    res.end(JSON.stringify({ message: "Animal modificado con éxito", data: contentJS[busqueda]}))
-                }  
+                    return res.end(JSON.stringify({ message: "Animal modificado con éxito", data: contentJS[busqueda]}))
+                }
+
+                res.writeHead(404);
+                return res.end(JSON.stringify({ message: "Id de animal no encontrado"}))
             })
             
         } else if(metodo == "DELETE") {
@@ -95,8 +121,11 @@ http.createServer((req, res) => {
             if(busqueda != -1) {
                 const eliminado = contentJS.splice(busqueda, 1)
                 writeFileSync(dataAnimales, JSON.stringify(contentJS), "utf-8")
-                res.end(JSON.stringify({ message: "Animal eliminado con éxito", data: eliminado}))
+                return res.end(JSON.stringify({ message: "Animal eliminado con éxito", data: eliminado}))
             }
+
+            res.writeHead(404);
+            return res.end(JSON.stringify({ message: "Id de animal no encontrado"}))
         }
     }
 
