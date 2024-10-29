@@ -2,13 +2,12 @@ const http = require("http");
 const url = require("url");
 const { v4: uuidv4 } = require('uuid');
 const { readFileSync, writeFileSync } = require("fs");
-const { sourceMapsEnabled } = require("process");
 const port = 3000;
 
 // Ubicación del archivo de persistencia.
 const dataAnimales = `${__dirname}/data/animales.txt`
 
-http.createServer((req, res) => {
+const servidor = http.createServer((req, res) => {
     const metodo = req.method;
     const urlParsed = url.parse(req.url, true)
     const pathName = urlParsed.pathname
@@ -136,3 +135,5 @@ http.createServer((req, res) => {
 }).listen(port, () => {
     console.log(`Aplicación ejecutandose por el puerto ${port}`);
 })
+
+module.exports = { servidor, port }
