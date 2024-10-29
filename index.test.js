@@ -1,5 +1,7 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+const { faker } = require('@faker-js/faker');
+
 const { servidor, port } = require("./index.js")
 
 chai.use(chaiHttp);
@@ -35,6 +37,19 @@ describe("Pruebas ruta listado de animales", () => {
             const data = JSON.parse(response.text);
             chai.expect(data.message).to.equal("Listado de animales");
             chai.expect(data.data).to.be.a("array");
+        })
+    })
+})
+
+describe("Pruebas ruta registro de animales", () => {
+    it("Respuesta HTTP 201", () => {
+        chai.request(servidor).post("/animales").send({
+            "especie": faker.animal.type(),
+            "habitat": "Acuático",
+            "edad": faker.number.int({ min: 1, max: 10 }),
+            "nombre": faker.person.firstName()
+        }).end((err, resp) => {
+            chai.expect(resp).to.have.status(201)
         })
     })
 })
