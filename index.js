@@ -2,7 +2,7 @@ const http = require("http");
 const url = require("url");
 const { v4: uuidv4 } = require('uuid');
 const { readFileSync, writeFileSync } = require("fs");
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // Ubicación del archivo de persistencia.
 const dataAnimales = `${__dirname}/data/animales.txt`
