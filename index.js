@@ -2,7 +2,7 @@ const http = require("http");
 const url = require("url");
 const { v4: uuidv4 } = require('uuid');
 const { readFileSync, writeFileSync } = require("fs");
-const port = 80;
+const PORT = process.env.PORT || 3000;
 
 // Ubicación del archivo de persistencia.
 const dataAnimales = `${__dirname}/data/animales.txt`
@@ -130,7 +130,7 @@ const servidor = http.createServer((req, res) => {
 
     
 
-    // res.end("Llamado a nuestra API "+metodo)
+    res.end("Llamado a nuestra API "+metodo)
 
 }).listen(port, () => {
     console.log(`Aplicación ejecutandose por el puerto ${port}`);
